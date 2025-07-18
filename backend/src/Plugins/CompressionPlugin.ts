@@ -5,7 +5,7 @@ import { gzip, Gzip } from 'zlib';
 import { promisify } from 'util';
 
 //! maybe i should allow passing options for configurable options
-//! also probably I need to change this be decorated in route-level after I've a better understanding
+//! already route-level, though just needs to be registered
 
 const GzipAsync = promisify(gzip);
 
