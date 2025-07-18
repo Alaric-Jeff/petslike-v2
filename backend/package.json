@@ -5,6 +5,8 @@
     "@fastify/postgres": "^6.0.2",
     "dotenv": "^17.2.0",
     "fastify": "^5.4.0",
+    "fastify-plugin": "^5.0.1",
+    "pg": "^8.16.3",
     "typescript": "^5.8.3"
   },
   "name": "backend",
@@ -25,6 +27,7 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@types/node": "^24.0.14"
+    "@types/node": "^24.0.14",
+    "@types/pg": "^8.15.4"
   }
 }

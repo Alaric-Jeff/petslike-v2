@@ -1,14 +1,11 @@
 import Fastify from 'fastify';
 import dotenv from 'dotenv'
-import CompressionPlugin from './Plugins/CompressionPlugin.js';
 
 dotenv.config();
 
 const fastify = Fastify({
     logger: true
 });
-
-fastify.register(CompressionPlugin);
 
 try{
     fastify.listen({
