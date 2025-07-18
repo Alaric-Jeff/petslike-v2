@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@fastify/compress": "^8.1.0",
+    "@fastify/oauth2": "^8.1.2",
+    "@fastify/postgres": "^6.0.2",
+    "dotenv": "^17.2.0",
+    "fastify": "^5.4.0",
+    "typescript": "^5.8.3"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Server side of petslike-v2 website, with high raw-performance, and scalability in mind.",
+  "main": "./dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node ./dist/app.js"
+  },
+  "keywords": [
+    "e-commerce",
+    "fastify",
+    "high-performance backend"
+  ],
+  "author": "Jeffrey M. Aspiras",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^24.0.14"
+  }
+}
