@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import dotenv from 'dotenv'
 import CompressionPlugin from './Plugins/CompressionPlugin.js';
+import PSQLPlugin from './Plugins/PostgreSQLPlugin.js';
 
 dotenv.config();
 
@@ -9,6 +10,11 @@ const fastify = Fastify({
 });
 
 fastify.register(CompressionPlugin);
+fastify.register(PSQLPlugin, {
+  connectionString: process.env.DATABASE_URL,
+  max: 20,
+  idleTimeoutMillis: 10000
+});
 
 try{
     fastify.listen({
