@@ -1,3 +1,5 @@
+import { type } from 'os';
+
 /**
  * @type {import('node-pg-migrate').MigrationBuilder}
  */
@@ -55,11 +57,18 @@ export const up = (pgm) => {
       type: 'varchar(255)',
       notNull: false,
       default: '',
+    }, userInformation: {
+      type: 'userInformation', 
+      notNull: false
     },
     created_at: {
       type: 'timestamp',
       default: pgm.func('now()'),
-    },
+    }
+  });
+
+  pgm.createTable('userInformation', {
+
   });
 
   pgm.createIndex('products_table', ['animalType', 'foodCategory', 'dietCategory'])
@@ -119,6 +128,72 @@ export const up = (pgm) => {
       notNull: true
     }
   });
+
+  pgm.createType('statusType', [
+    'active',
+    'ordered',
+    'cancelled',
+    'abandoned'
+  ]);
+
+  pgm.addConstraint('carts', 'fk_cart_user', {
+    foreignKeys: {
+      columns: 'userId', 
+      references: 'users_table(userId)',
+      onDelete: 'CASCADE'
+    }
+  });
+
+  pgm.addConstraint('cartItems', 'fk_cartItems_cart', {
+    foreignKeys: {
+    columns: 'cartId',
+    references: 'carts(cartId)',
+    onDelete: 'CASCADE'
+    }
+  });
+
+  pgm.addConstraint('cartItems', 'fk_cartItems_product', {
+    foreignKeys: {
+    columns: 'productId',
+    references: 'products_table(productId)',
+    onDelete: 'CASCADE'
+  }
+  });
+
+  pgm.createTable('carts', {
+    cartId: {
+      type: 'serial',
+      primaryKey: true
+    }, userId: {
+      type: 'numeric',
+      notNull: true
+    }, status: {
+      type: 'statusType',
+      notNull: true,
+      default: 'active'
+    }, cartTitle: {
+      type: 'varchar(255)',
+      notNull: true,
+      default: 'add title'
+    }, createdAt: {
+      type: 'timestamp',
+      default: pgm.func('now()')
+    }
+  });
+
+  pgm.createTable('cartItems', {
+    cid: {
+      type: 'serial',
+      primaryKey: true
+    }, cartId: {
+      type: 'numeric',
+      notNull: true
+    }, productId: {
+      type: 'numeric',
+      notNull: true
+    }
+  });
+
 };
 
 export const down = (pgm) => {
