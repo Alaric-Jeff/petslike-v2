@@ -13,7 +13,7 @@
   },
   "name": "backend",
   "version": "1.0.0",
-  "description": "Server side of petslike-v2 website, with high raw-performance, and scalability in mind.",
+  "description": "Backend of petslike-v2 website, with high raw-performance, and scalability in mind.",
   "main": "./dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,6 +33,7 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^24.0.14",
-    "@types/pg": "^8.15.4"
+    "@types/pg": "^8.15.4",
+    "autocannon": "^8.0.0"
   }
 }
