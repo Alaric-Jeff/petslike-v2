@@ -3,13 +3,15 @@
     "@fastify/compress": "^8.1.0",
     "@fastify/oauth2": "^8.1.2",
     "@fastify/postgres": "^6.0.2",
+    "@sinclair/typebox": "^0.34.38",
     "dotenv": "^17.2.0",
     "fastify": "^5.4.0",
     "fastify-metrics": "^12.1.0",
     "fastify-plugin": "^5.0.1",
     "node-pg-migrate": "^8.0.3",
     "pg": "^8.16.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "name": "backend",
   "version": "1.0.0",
