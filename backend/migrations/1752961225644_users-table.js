@@ -110,10 +110,6 @@ export const up = (pgm) => {
       type: 'varchar(255)',
       notNull: false,
       default: 'N/A',
-    },
-    created_at: {
-      type: 'timestamp',
-      default: pgm.func('now()'),
     }, foodCategory: {
       type: 'foodCategory',
       notNull: true
@@ -126,7 +122,10 @@ export const up = (pgm) => {
     }, animalType: {
       type: 'animalType',
       notNull: true
-    }
+    }, created_at: {
+      type: 'timestamp',
+      default: pgm.func('now()'),
+    },
   });
 
   pgm.createType('statusType', [
