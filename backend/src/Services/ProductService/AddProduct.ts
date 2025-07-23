@@ -15,7 +15,7 @@ async function AddProduct(fastify: FastifyInstance,
     try{
         await fastify.pg.query('BEGIN');
         const result = await fastify.pg.query(
-            'INSERT INTO products_table(productName, productPrice, productStock, isDiscounted, discountPercentage, productDescription, foodCategory, dietCategroy, lifeStage, animalType) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING*', [
+            'INSERT INTO products_table(productName, productPrice, productStock, isDiscounted, discountPercentage, productDescription, foodCategory, dietCategory, lifeStage, animalType) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING*', [
                 productName, productPrice, productStock, isDiscounted, discountPercentage, productDescription, foodCategory, dietCategory, lifeStage, animalType
             ]
         );
