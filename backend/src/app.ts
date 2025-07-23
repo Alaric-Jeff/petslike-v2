@@ -1,7 +1,7 @@
 import Fastify from 'fastify';
 import dotenv from 'dotenv'
 import CompressionPlugin from './Plugins/CompressionPlugin.js';
-import PSQLPlugin from './Plugins/PostgreSQLPlugin.js';
+import compress from '@fastify/compress';
 
 dotenv.config();
 
@@ -10,10 +10,12 @@ const fastify = Fastify({
 });
 
 fastify.register(CompressionPlugin);
-fastify.register(PSQLPlugin, {
-  connectionString: process.env.DATABASE_URL,
-  max: 20,
-  idleTimeoutMillis: 10000
+fastify.register(compress, {
+    global: false,
+    encodings: ['gzip'],
+    threshold: 1024,
+    inflateIfDeflated: true,
+    customTypes: /^text\/|\+json$|\+text$|\+xml$|application\/json$/
 });
 
 try{

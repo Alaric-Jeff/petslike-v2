@@ -16,4 +16,4 @@ const ProductSchema = Type.Object({
 
 type Product = Static<typeof ProductSchema>;
 
-export default ProductSchema;
+export {ProductSchema, Product};
