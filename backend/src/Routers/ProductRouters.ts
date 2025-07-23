@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import {ProductSchema} from "../Schemas/ProductSchemas/AddProductSchema.js";
+import AddProductController from "../Controllers/ProductControllers/AddProductController.js";
 
 async function ProductRouters(fastify: FastifyInstance) {
   fastify.route({
@@ -9,9 +10,7 @@ async function ProductRouters(fastify: FastifyInstance) {
       body: ProductSchema
     },
     preHandler: fastify.compress,
-    handler: async (request, reply) => {
-      reply.send({ message: "Product created (mock response)" });
-    }
+    handler: AddProductController
   });
 }
 
