@@ -61,16 +61,9 @@ async function AddProduct(
       ]
     );
 
-    fastify.log.info({
-      productName,
-      productPrice,
-      productStock,
-      productDescription
-    });
-
     await fastify.pg.query("COMMIT");
-
     return result.rows[0];
+
   } catch (err: unknown) {
     await fastify.pg.query("ROLLBACK");
 
@@ -80,7 +73,7 @@ async function AddProduct(
       fastify.log.error("AddProduct unknown error");
     }
 
-    throw err;
+    throw new Error(`Failed to create product: ${productName}`);
   }
 }
 

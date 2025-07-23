@@ -2,8 +2,8 @@ import {Product} from "../../Schemas/ProductSchemas/AddProductSchema.js";
 import AddProduct from "../../Services/ProductService/AddProduct.js";
 import { FastifyRequest, FastifyReply, FastifyInstance} from "fastify";
 
-const AddProductController = async (request: FastifyRequest<{Body: Product}>, reply: FastifyReply) => {
-         const {
+const AddProductController = async ({body, server}: FastifyRequest<{Body: Product}>, reply: FastifyReply) => {
+    const {
             productDescription,
             discountPercentage,
             productName,
@@ -14,26 +14,9 @@ const AddProductController = async (request: FastifyRequest<{Body: Product}>, re
             dietCategory,
             lifeStage,
             animalType
-        } = request.body;
+    } = body;
 
-        const fastify = request.server as FastifyInstance;
-
-        if(!productName || !productPrice || !productStock || !isDiscounted || !foodCategory || !dietCategory || !lifeStage ||!animalType){
-            reply.log.warn(`Incomplete required fields`);
-            return reply.code(404).send({
-                message: "Incomplete required fields",
-                success: false
-            });
-        };
-
-        if(isNaN(productPrice) || isNaN(productStock)){
-            reply.log.warn(`Incomplete required fields`);
-            return reply.code(404).send({
-                message: "Invalid input in numeric fields",
-                sucess: false
-            });
-        };
-
+    const fastify = server as FastifyInstance;
     try{
         const newProduct = await AddProduct(
             fastify,
