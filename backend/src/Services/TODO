@@ -1,0 +1,9 @@
+# TODO – Service Improvements
+
+- [ ] Add retry logic for transient DB errors (deadlocks, timeouts)
+- [ ] Handle specific DB errors gracefully (e.g., constraint violations)
+- [ ] Add unit & integration tests covering transactions and edge cases
+- [ ] Create reusable transaction wrapper utility
+- [ ] Improve logging: errors with stack traces & success events
+- [ ] Add query timeout and input validation
+- [ ] Sanitize inputs and audit for performance issues

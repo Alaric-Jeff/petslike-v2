@@ -30,10 +30,11 @@ async function AddProduct(
     animalType
   } = product;
 
+  const client = await fastify.pg.connect();
   try {
-    await fastify.pg.query("BEGIN");
+    await client.query("BEGIN");
 
-    const result = await fastify.pg.query(
+    const result = await client.query(
       `INSERT INTO products_table (
         productName,
         productPrice,
@@ -61,12 +62,11 @@ async function AddProduct(
       ]
     );
 
-    await fastify.pg.query("COMMIT");
+    await client.query("COMMIT");
     return result.rows[0];
-
   } catch (err: unknown) {
-    await fastify.pg.query("ROLLBACK");
-
+    
+    await client.query("ROLLBACK");
     if (err instanceof Error) {
       fastify.log.error(`AddProduct error: ${err.message}`);
     } else {
@@ -74,6 +74,8 @@ async function AddProduct(
     }
 
     throw new Error(`Failed to create product: ${productName}`);
+  }finally{
+    client.release();
   }
 }
 
