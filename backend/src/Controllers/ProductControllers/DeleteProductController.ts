@@ -25,7 +25,15 @@ const DeleteProductController = async ({body, server}: FastifyRequest<{Body: Del
         });
 
     }catch(err: unknown){
-
+        if(err instanceof Error){
+            fastify.log.error(`DeleteProductController() failed, reason: ${err.message}`)
+        }else{
+            fastify.log.error(`Unknown Error Occured`)
+        }
+        return reply.code(500).send({
+            message: "Internal server error",
+            sucess: false
+        })
     }
 }
 
