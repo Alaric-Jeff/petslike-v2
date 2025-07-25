@@ -20,7 +20,7 @@ async function DeleteProduct(fastify: FastifyInstance, product_id: number){
         }
         throw new Error(`Error deleting product ${product_id}`)
     }finally{
-        client.release();
+        await client.release();
     }
 }
 
