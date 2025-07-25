@@ -40,6 +40,13 @@ export const up = (pgm) => {
     unique: ['provider', 'providerId']
   });
 
+  pgm.createType('userInformation', [
+    {email: 'varchar(255)'}, 
+    {given_name: 'varchar(255)'},
+    {family_name: 'varchar(255)'},
+    {picture: 'text'}
+  ])
+
   pgm.createTable('users_table', {
     userId: {
       type: 'serial',
