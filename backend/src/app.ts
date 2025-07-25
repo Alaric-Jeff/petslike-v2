@@ -1,14 +1,20 @@
 import Fastify from 'fastify';
 import dotenv from 'dotenv'
 import PSQLPlugin from './Plugins/PostgreSQLPlugin.js';
+import RegisterRouters from './Routers/index.js';
 import compress from '@fastify/compress';
+import helmet from '@fastify/helmet'
 
 dotenv.config();
+
+// TODO - some of this shi plugins were rushed and ungracefully non-modularized, I'll modularize this when I get the chance
 
 const fastify = Fastify({
     logger: true
 });
 
+fastify.register(RegisterRouters)
+fastify.register(helmet, {global: true});
 fastify.register(PSQLPlugin, {
     connectionString: process.env.DATABASE_URL,
     max: 20,
