@@ -29,4 +29,5 @@ const DeleteProductController = async ({body, server}: FastifyRequest<{Body: Del
     }
 }
 
-export default DeleteProduct;
+
+export default DeleteProductController;
