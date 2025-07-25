@@ -4,6 +4,6 @@ const DeleteProductSchema = Type.Object({
     productId: Type.Number()
 });
 
-type DeleteProduct = Static<typeof DeleteProductSchema>;
+type DeleteProductType = Static<typeof DeleteProductSchema>;
 
-export {DeleteProduct, DeleteProductSchema};
+export {DeleteProductType, DeleteProductSchema};
