@@ -4,32 +4,32 @@ import { FastifyRequest, FastifyReply, FastifyInstance} from "fastify";
 
 const AddProductController = async ({body, server}: FastifyRequest<{Body: Product}>, reply: FastifyReply) => {
     const {
-            productDescription,
-            discountPercentage,
-            productName,
-            productPrice,
-            productStock,
-            isDiscounted,
-            foodCategory,
-            dietCategory,
-            lifeStage,
-            animalType
+            product_description,
+            discount_percentage,
+            product_name,
+            product_price,
+            product_stock,
+            is_discounted,
+            food_category,
+            diet_category,
+            life_stage,
+            animal_type
     } = body;
 
     const fastify = server as FastifyInstance;
     try{
         const newProduct = await AddProduct(
             fastify,
-            {productName,
-            productPrice,
-            productStock,
-            isDiscounted,
-            foodCategory,
-            dietCategory,
-            lifeStage,
-            animalType,
-            productDescription,
-            discountPercentage}
+            {product_name,
+            product_price,
+            product_stock,
+            is_discounted,
+            food_category,
+            diet_category,
+            life_stage,
+            animal_type,
+            product_description,
+            discount_percentage}
         );
 
         if(!newProduct){
@@ -46,6 +46,7 @@ const AddProductController = async ({body, server}: FastifyRequest<{Body: Produc
         });
 
     }catch(err: unknown){
+        fastify.log.info(`Error: ${err}`)
         return reply.code(500).send({
             message: "Internal server error",
             success: false

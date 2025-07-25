@@ -1,13 +1,13 @@
 import {FastifyInstance} from "fastify";
 
-async function DeleteProduct(fastify: FastifyInstance, productId: number){
+async function DeleteProduct(fastify: FastifyInstance, product_id: number){
     const client = await fastify.pg.connect();
     try{
         await client.query(`BEGIN`);
         const result = await fastify.pg.query(`
             DELETE FROM products_table
             WHERE productId = $1
-            RETURNING productId`, [productId]);
+            RETURNING productId`, [product_id]);
 
         await client.query(`COMMIT`);
         return result.rows[0];
@@ -18,7 +18,7 @@ async function DeleteProduct(fastify: FastifyInstance, productId: number){
         }else{
             fastify.log.error(`DeleteProduct unknown error`)
         }
-        throw new Error(`Error deleting product ${productId}`)
+        throw new Error(`Error deleting product ${product_id}`)
     }finally{
         client.release();
     }

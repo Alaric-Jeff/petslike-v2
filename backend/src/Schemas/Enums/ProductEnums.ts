@@ -1,18 +1,18 @@
-export enum FoodCategory {
+export enum foodcategory {
     DryFood = 'dry food',
     WetFood = 'wet food',
     Treats = 'treats',
     Supplements = 'supplements',
   }
   
-  export enum DietCategory {
+  export enum dietcategory {
     ProcessedMeat = 'processed-meat',
     RawMeat = 'raw meat',
     Vegetarian = 'vegetarian',
     GrainFree = 'grain-free',
   }
   
-  export enum LifeStage {
+  export enum lifestage {
     Baby = 'baby',
     Young = 'young',
     Adult = 'adult',
@@ -21,7 +21,7 @@ export enum FoodCategory {
     AllStages = 'all-stages',
   }
   
-  export enum AnimalType {
+  export enum animaltype {
     Dog = 'dog',
     Cat = 'cat',
     Bird = 'bird',

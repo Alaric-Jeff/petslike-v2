@@ -1,7 +1,7 @@
 import { Type, Static } from "@sinclair/typebox";
 
 const DeleteProductSchema = Type.Object({
-    productId: Type.Number()
+    product_id: Type.Number()
 });
 
 type DeleteProductType = Static<typeof DeleteProductSchema>;

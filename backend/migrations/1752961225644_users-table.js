@@ -4,21 +4,21 @@ import { type } from 'os';
  * @type {import('node-pg-migrate').MigrationBuilder}
  */
 export const up = (pgm) => {
-  pgm.createType('foodCategory', [
+  pgm.createType('foodcategory', [
     'dry food',
     'wet food',
     'treats',
     'supplements',
   ]);
 
-  pgm.createType('dietCategory', [
+  pgm.createType('dietcategory', [
     'processed-meat',
     'raw meat',
     'vegetarian',
     'grain-free',
   ]);
 
-  pgm.createType('lifeStage', [
+  pgm.createType('lifestage', [
     'baby',
     'young',
     'adult',
@@ -27,7 +27,7 @@ export const up = (pgm) => {
     'all-stages',
   ]);
 
-  pgm.createType('animalType', [
+  pgm.createType('animaltype', [
     'dog',
     'cat',
     'bird',
@@ -36,19 +36,8 @@ export const up = (pgm) => {
     'rabbit',
   ]);
 
-  pgm.addConstraint('users_table', 'unique_provider_providerId', {
-    unique: ['provider', 'providerId']
-  });
-
-  pgm.createType('userInformation', [
-    {email: 'varchar(255)'}, 
-    {given_name: 'varchar(255)'},
-    {family_name: 'varchar(255)'},
-    {picture: 'text'}
-  ])
-
   pgm.createTable('users_table', {
-    userId: {
+    user_id: {
       type: 'serial',
       primaryKey: true,
     },
@@ -56,16 +45,17 @@ export const up = (pgm) => {
       type: 'varchar(255)',
       notNull: true,
     },
-    providerId: {
+    provider_id: {
       type: 'varchar(255)',
       notNull: true,
     },
-    displayName: {
+    display_name: {
       type: 'varchar(255)',
       notNull: false,
       default: '',
-    }, userInformation: {
-      type: 'userInformation', 
+    },
+    user_information: {
+      type: 'jsonb',
       notNull: false
     },
     created_at: {
@@ -74,140 +64,152 @@ export const up = (pgm) => {
     }
   });
 
-  pgm.createTable('userInformation', {
-
+  pgm.addConstraint('users_table', 'unique_provider_provider_id', {
+    unique: ['provider', 'provider_id']
   });
 
-  pgm.createIndex('products_table', ['animalType', 'foodCategory', 'dietCategory'])
-  pgm.createIndex('products_table', ['animalType'])
-  pgm.createIndex('products_table', ['foodCategory'])
-  pgm.createIndex('products_table', ['dietCategory'])
-
   pgm.createTable('products_table', {
-    productId: {
+    product_id: {
       type: 'serial',
       primaryKey: true,
     },
-    productName: {
+    product_name: {
       type: 'varchar(255)',
       notNull: true,
       default: 'N/A',
     },
-    productPrice: {
+    product_price: {
       type: 'double precision',
       notNull: true,
       default: 0.0,
     },
-    productStock: {
+    product_stock: {
       type: 'integer',
       notNull: true,
       default: 0,
     },
-    isDiscounted: {
+    is_discounted: {
       type: 'boolean',
       notNull: true,
       default: false,
     },
-    discountPercentage: {
+    discount_percentage: {
       type: 'real',
       notNull: true,
       default: 0.0,
     },
-    productDescription: {
+    product_description: {
       type: 'varchar(255)',
       notNull: false,
       default: 'N/A',
-    }, foodCategory: {
-      type: 'foodCategory',
+    },
+    food_category: {
+      type: 'foodcategory',
       notNull: true
-    }, dietCategory: {
-      type: 'dietCategory',
+    },
+    diet_category: {
+      type: 'dietcategory',
       notNull: true
-    }, lifeStage: {
-      type: 'lifeStage',
+    },
+    life_stage: {
+      type: 'lifestage',
       notNull: true
-    }, animalType: {
-      type: 'animalType',
+    },
+    animal_type: {
+      type: 'animaltype',
       notNull: true
-    }, created_at: {
+    },
+    created_at: {
       type: 'timestamp',
       default: pgm.func('now()'),
     },
   });
 
-  pgm.createType('statusType', [
+  pgm.createIndex('products_table', ['animal_type', 'food_category', 'diet_category']);
+  pgm.createIndex('products_table', ['animal_type']);
+  pgm.createIndex('products_table', ['food_category']);
+  pgm.createIndex('products_table', ['diet_category']);
+
+  pgm.createType('statustype', [
     'active',
     'ordered',
     'cancelled',
     'abandoned'
   ]);
 
-  pgm.addConstraint('carts', 'fk_cart_user', {
-    foreignKeys: {
-      columns: 'userId', 
-      references: 'users_table(userId)',
-      onDelete: 'CASCADE'
-    }
-  });
-
-  pgm.addConstraint('cartItems', 'fk_cartItems_cart', {
-    foreignKeys: {
-    columns: 'cartId',
-    references: 'carts(cartId)',
-    onDelete: 'CASCADE'
-    }
-  });
-
-  pgm.addConstraint('cartItems', 'fk_cartItems_product', {
-    foreignKeys: {
-    columns: 'productId',
-    references: 'products_table(productId)',
-    onDelete: 'CASCADE'
-  }
-  });
-
   pgm.createTable('carts', {
-    cartId: {
+    cart_id: {
       type: 'serial',
       primaryKey: true
-    }, userId: {
-      type: 'numeric',
+    },
+    user_id: {
+      type: 'integer',
       notNull: true
-    }, status: {
-      type: 'statusType',
+    },
+    status: {
+      type: 'statustype',
       notNull: true,
       default: 'active'
-    }, cartTitle: {
+    },
+    cart_title: {
       type: 'varchar(255)',
       notNull: true,
       default: 'add title'
-    }, createdAt: {
+    },
+    created_at: {
       type: 'timestamp',
       default: pgm.func('now()')
     }
   });
 
-  pgm.createTable('cartItems', {
+  pgm.addConstraint('carts', 'fk_cart_user', {
+    foreignKeys: {
+      columns: 'user_id',
+      references: 'users_table(user_id)',
+      onDelete: 'CASCADE'
+    }
+  });
+
+  pgm.createTable('cart_items', {
     cid: {
       type: 'serial',
       primaryKey: true
-    }, cartId: {
-      type: 'numeric',
+    },
+    cart_id: {
+      type: 'integer',
       notNull: true
-    }, productId: {
-      type: 'numeric',
+    },
+    product_id: {
+      type: 'integer',
       notNull: true
     }
   });
 
+  pgm.addConstraint('cart_items', 'fk_cart_items_cart', {
+    foreignKeys: {
+      columns: 'cart_id',
+      references: 'carts(cart_id)',
+      onDelete: 'CASCADE'
+    }
+  });
+
+  pgm.addConstraint('cart_items', 'fk_cart_items_product', {
+    foreignKeys: {
+      columns: 'product_id',
+      references: 'products_table(product_id)',
+      onDelete: 'CASCADE'
+    }
+  });
 };
 
 export const down = (pgm) => {
+  pgm.dropTable('cart_items');
+  pgm.dropTable('carts');
   pgm.dropTable('products_table');
   pgm.dropTable('users_table');
-
-  pgm.dropType('foodCategory');
-  pgm.dropType('dietCategory');
-  pgm.dropType('lifeStage');
-  pgm.dropType('animalType');
+  pgm.dropType('foodcategory');
+  pgm.dropType('dietcategory');
+  pgm.dropType('lifestage');
+  pgm.dropType('animaltype');
+  pgm.dropType('statustype');
 };

@@ -10,7 +10,7 @@ dotenv.config();
 // TODO - some of this shi plugins were rushed and ungracefully non-modularized, I'll modularize this when I get the chance
 
 const fastify = Fastify({
-    logger: true
+    logger: false
 });
 
 fastify.register(RegisterRouters)

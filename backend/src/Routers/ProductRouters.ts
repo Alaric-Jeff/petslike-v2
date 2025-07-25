@@ -7,7 +7,7 @@ import AddProductController from "../Controllers/ProductControllers/AddProductCo
 async function ProductRouters(fastify: FastifyInstance) {
   fastify.route({
     method: 'POST',
-    url: 'api/products/add-product',
+    url: '/add-product',
     schema: {
       body: ProductSchema
     },
@@ -17,7 +17,7 @@ async function ProductRouters(fastify: FastifyInstance) {
 
   fastify.route({
     method: 'POST',
-    url: 'api/products/delete-product',
+    url: '/delete-product',
     schema: {
       body: DeleteProductSchema
     }, handler: DeleteProductController

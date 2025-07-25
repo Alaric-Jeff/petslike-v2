@@ -4,11 +4,11 @@ import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 
 const DeleteProductController = async ({body, server}: FastifyRequest<{Body: DeleteProductType}>, reply: FastifyReply) => {
 
-    const {productId} = body;
+    const {product_id} = body;
     const fastify = server as FastifyInstance;
 
     try{
-        const deletedProduct = await DeleteProduct(fastify, productId);
+        const deletedProduct = await DeleteProduct(fastify, product_id);
 
         if(!deletedProduct){
             fastify.log.error(`Product not found`);
