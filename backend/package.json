@@ -4,6 +4,7 @@
     "@fastify/helmet": "^13.0.1",
     "@fastify/oauth2": "^8.1.2",
     "@fastify/postgres": "^6.0.2",
+    "@fastify/rate-limit": "^10.3.0",
     "@sinclair/typebox": "^0.34.38",
     "dotenv": "^17.2.0",
     "fastify": "^5.4.0",
