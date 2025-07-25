@@ -1,12 +1,11 @@
 import { createSignal } from 'solid-js';
 import './Login.css';
+import googleLogo from '../../assets/GoogleLogo.png'
 
 const facebookOauth2URL = import.meta.env.VITE_FACEBOOK_OATH2;
 
 export default function LoginForm() {
-  const [firstName, setFirstName] = createSignal<string>('');
-  const [lastName, setLastName] = createSignal<string>('');  
-  const [middleName, setMiddleName] = createSignal<string>('');
+  const [email, setEmail] = createSignal<string>('');
   const [password, setPassword] = createSignal<string>('');
 
   const handleSubmit = (e: Event) => {
@@ -20,24 +19,9 @@ export default function LoginForm() {
 
         <input
           type="text"
-          placeholder="First Name"
-          value={firstName()}
-          onInput={(e) => setFirstName((e.target as HTMLInputElement).value)}
-        />
-
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName()}
-          onInput={(e) => setLastName((e.target as HTMLInputElement).value)}
-        />
-
-        
-        <input
-          type="text"
-          placeholder="Middle Name"
-          value={middleName()}
-          onInput={(e) => setMiddleName((e.target as HTMLInputElement).value)}
+          placeholder="Email"
+          value={email()}
+          onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
         />
 
         <input
@@ -57,13 +41,13 @@ export default function LoginForm() {
           }}
         >
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_Logo.svg"
+            src= {googleLogo}
             alt="Google"
             width="20"
             height="20"
             style="margin-right: 0.5rem;"
           />
-          Continue with Google
+           Google
         </button>
       </form>
     </div>
