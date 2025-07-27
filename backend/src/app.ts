@@ -4,13 +4,15 @@ import PSQLPlugin from './Plugins/PostgreSQLPlugin.js';
 import RegisterRouters from './Routers/index.js';
 import compress from '@fastify/compress';
 import helmet from '@fastify/helmet'
+import fs from 'fs';
 
 dotenv.config();
 
 // TODO - some of this shi plugins were rushed and ungracefully non-modularized, I'll modularize this when I get the chance
 
 const fastify = Fastify({
-    logger: true
+  logger: true,
+  http2: true
 });
 
 fastify.register(RegisterRouters)

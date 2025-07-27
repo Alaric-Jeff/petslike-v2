@@ -42,7 +42,8 @@ const AddProductController = async ({body, server}: FastifyRequest<{Body: Produc
 
         return reply.code(200).send({
             message: `Succesfully created product`,
-            success: true
+            success: true, 
+            product: newProduct
         });
 
     }catch(err: unknown){
