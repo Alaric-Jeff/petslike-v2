@@ -1,6 +1,6 @@
 import {Product} from "../../Schemas/ProductSchemas/AddProductSchema.js";
 import AddProduct from "../../Services/ProductService/AddProduct.js";
-import { FastifyRequest, FastifyReply, FastifyInstance} from "fastify";
+import { FastifyRequest, FastifyReply} from "fastify";
 
 const AddProductController = async ({body, server}: FastifyRequest<{Body: Product}>, reply: FastifyReply) => {
     const {
@@ -16,7 +16,7 @@ const AddProductController = async ({body, server}: FastifyRequest<{Body: Produc
             animal_type
     } = body;
 
-    const fastify = server as FastifyInstance;
+    const fastify = server;
     try{
         const newProduct = await AddProduct(
             fastify,
@@ -33,7 +33,7 @@ const AddProductController = async ({body, server}: FastifyRequest<{Body: Produc
         );
 
         if(!newProduct){
-            reply.log.warn(`Product is not created in the services, recieved: ${newProduct}`);
+            reply.log.warn(`Product is not created in the services, received: ${newProduct}`);
             return reply.code(404).send({
                 message: `Failed to create product`,
                 success: false

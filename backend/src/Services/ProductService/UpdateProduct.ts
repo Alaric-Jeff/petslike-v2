@@ -1,22 +1,8 @@
 import { FastifyInstance } from "fastify";
-
+import { UpdateProduct } from "../../Schemas/ProductSchemas/UpdateBodySchema.js";
 // TODO - this needs to be monitored, possibly add a cluster or queue here.
 
-type UpdateInput = {
-    product_id: number;
-    product_name?: string;
-    product_price?: number;
-    product_stock?: number;
-    is_discounted: boolean;
-    food_category: string;
-    diet_category: string;
-    life_category: string;
-    animal_type: string;
-    product_description?: string;
-    discount_percentage?: number;
-};
-
-async function UpdateProduct(fastify: FastifyInstance, body: UpdateInput) {
+async function UpdateProductService(fastify: FastifyInstance, body: UpdateProduct) {
   const {
     product_id,
     ...rest
@@ -40,15 +26,19 @@ async function UpdateProduct(fastify: FastifyInstance, body: UpdateInput) {
   const client = await fastify.pg.connect();
   try {
     await client.query("BEGIN");
-    await client.query(
+    const updatedProduct = await client.query(
       `UPDATE products_table SET ${updates.join(", ")} WHERE product_id = $${index}`,
       values
     );
+    
     await client.query("COMMIT");
+    return updatedProduct.rows[0];
   } catch (err) {
     await client.query("ROLLBACK");
     throw err;
   } finally {
-    await client.release();
+    client.release();
   }
 }
+
+export default UpdateProductService;

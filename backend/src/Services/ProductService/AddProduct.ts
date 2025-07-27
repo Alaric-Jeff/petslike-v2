@@ -1,21 +1,9 @@
 import { FastifyInstance } from "fastify";
-
-type ProductInput = {
-  product_name: string;
-  product_price: number;
-  product_stock: number;
-  is_discounted: boolean;
-  food_category: string;
-  diet_category: string;
-  life_stage: string;
-  animal_type: string;
-  product_description?: string | null;
-  discount_percentage?: number | null;
-};
+import { Product } from "../../Schemas/ProductSchemas/AddProductSchema.js";
 
 async function AddProduct(
   fastify: FastifyInstance,
-  product: ProductInput
+  product: Product
 ) {
   const {
     product_name,
