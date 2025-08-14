@@ -18,3 +18,5 @@ async function AddCartService(fastify: FastifyInstance, id: userIdType){
         client.release();
     }
 }
+
+export default AddCartService;
