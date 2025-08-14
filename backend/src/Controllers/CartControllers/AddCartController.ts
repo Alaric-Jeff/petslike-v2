@@ -10,11 +10,13 @@ const AddCartController = async ({server, body}: FastifyRequest<{Body: userIdTyp
     } = body;
 
     try{
+        
         await AddCartService(server, {user_id});
         return reply.code(200).send({
             message: "Product added to cart successfully",
             success: true
         });
+
     }catch(err: unknown){
         return reply.code(500).send({
             message: "Internal server error",
