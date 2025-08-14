@@ -10,11 +10,12 @@ const AddCartController = async ({server, body}: FastifyRequest<{Body: userIdTyp
     } = body;
 
     try{
-        
-        await AddCartService(server, {user_id});
+
+        const newCart = await AddCartService(server, {user_id});
         return reply.code(200).send({
             message: "Product added to cart successfully",
-            success: true
+            success: true, 
+            data: newCart
         });
 
     }catch(err: unknown){
